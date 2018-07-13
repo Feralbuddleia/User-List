@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "mongodb express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xiaoyan-L/User-List.git"
+  },
+  "keywords": [
+    "mongodb",
+    "express"
+  ],
+  "author": "Xiaoyan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xiaoyan-L/User-List/issues"
+  },
+  "homepage": "https://github.com/Xiaoyan-L/User-List#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.1",
+    "path": "^0.12.7",
+    "rotating-file-stream": "^1.3.6"
+  }
+}
