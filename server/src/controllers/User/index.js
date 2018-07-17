@@ -39,9 +39,7 @@ const findBySearch = (req, res) => {
   console.log(condition, option);
   User.paginate(condition, option)
     .then(data => {
-      res.status(200).json({
-        data
-      });
+      res.status(200).json(data);
     })
     .catch(err => {
       res.status(403).json({})
@@ -54,9 +52,7 @@ const findOneByLogin = (req, res) => {
     User.find({ login }, (err, user) => {
       if (err) throw err;
 
-      res.status(200).json({
-        user
-      });
+      res.status(200).json(user);
     });
   } catch (err) {
     res.status(403).json({
@@ -68,6 +64,9 @@ const findOneByLogin = (req, res) => {
 const add = (req, res) => {
   try {
     const newUser = new User(req.body);
+    if (newUser.age) {
+      newUser.age = +newUser.age;
+    }
     console.log(req.body);
     newUser.save((err, user) => {
       if (err) throw err;
