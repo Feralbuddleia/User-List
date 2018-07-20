@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const { conn_str, port } = require('../config');
 
 
-const logDir = path.join(__dirname, './', 'logs');
+const logDir = path.join(__dirname, '../', 'logs');
 fs.existsSync(logDir) || fs.mkdirSync(logDir);
 
 const accessLogStream = rfs('access.log', {

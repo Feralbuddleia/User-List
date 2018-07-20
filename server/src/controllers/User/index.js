@@ -1,7 +1,7 @@
 const User = require("../../models/User");
 
 const index = (req, res) => {
-  const { page, limit} = req.query;
+  const { page, limit } = req.query;
   User.paginate({}, { page, limit })
     .then(data => {
       res.status(200).json({
@@ -9,7 +9,7 @@ const index = (req, res) => {
       });
     })
     .catch(err => {
-      res.status(403).json({
+      res.status(500).json({
         err
       });
     });
@@ -20,31 +20,27 @@ const findBySearch = (req, res) => {
   let condition = {};
   if (search) {
     const re = new RegExp(search);
-    
+
     condition = {
-      $or: [
-        {firstName: re},
-        {lastName: re},
-        {gender: re}
-      ]
-    }
+      $or: [{ firstName: re }, { lastName: re }, { gender: re }]
+    };
   }
-  const option = { 
+  const option = {
     page: +page,
-    limit: +limit
+    limit: +limit,
+    sort: {}
   };
   if (sort) {
-    option.sort = sort;
+    option.sort = JSON.parse(sort);
   }
-  console.log(condition, option);
   User.paginate(condition, option)
     .then(data => {
       res.status(200).json(data);
     })
     .catch(err => {
-      res.status(403).json({})
-    })
-}
+      res.status(500).json({});
+    });
+};
 
 const findOneByLogin = (req, res) => {
   try {
@@ -55,7 +51,7 @@ const findOneByLogin = (req, res) => {
       res.status(200).json(user);
     });
   } catch (err) {
-    res.status(403).json({
+    res.status(500).json({
       err
     });
   }
@@ -67,7 +63,6 @@ const add = (req, res) => {
     if (newUser.age) {
       newUser.age = +newUser.age;
     }
-    console.log(req.body);
     newUser.save((err, user) => {
       if (err) throw err;
       res.status(200).json({
@@ -75,7 +70,7 @@ const add = (req, res) => {
       });
     });
   } catch (err) {
-    res.status(403).json({
+    res.status(500).json({
       err
     });
   }
@@ -92,7 +87,7 @@ const update = (req, res) => {
       });
     });
   } catch (err) {
-    res.status(403).json({
+    res.status(500).json({
       err
     });
   }
@@ -108,10 +103,40 @@ const deleteByLogin = (req, res) => {
       });
     });
   } catch (err) {
-    res.status(403).json({
+    res.status(500).json({
       err
     });
   }
 };
 
-module.exports = { findBySearch, findOneByLogin, add, update, deleteByLogin };
+const userLogin = (req, res) => {
+  try {
+    const { login, password } = req.body;
+    User.findOne({ login }, (err, user) => {
+      if (err) throw err;
+      if (user) {
+        if (user.password === password) {
+          res.status(200).json({
+            login: user.login,
+            firstName: user.firstName,
+            status: 1
+          })
+        } else {
+          res.status(200).json({
+            status: 0
+          });
+        }
+      } else {
+        res.status(200).json({
+          status: -1
+        });
+      }
+    })
+  } catch (err) {
+    res.status(500).json({
+      err: err.response.data
+    })
+  }
+}
+
+module.exports = { findBySearch, findOneByLogin, add, update, deleteByLogin, userLogin };
