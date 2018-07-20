@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { getUserData, deleteUser } from "../actions/user";
 import { Table, Button } from "reactstrap";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
+import Title from "../containers/Title";
 
 class UserList extends Component {
   componentDidMount() {
@@ -10,7 +11,6 @@ class UserList extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { dispatch } = this.props;
     return (
       <Table>
@@ -18,10 +18,18 @@ class UserList extends Component {
           <tr>
             <th>Edit</th>
             <th>Delete</th>
-            <th>First Name </th>
-            <th>Last Name </th>
-            <th>Gender</th>
-            <th>Age</th>
+            <th>
+              <Title search="firstName">First Name</Title>
+            </th>
+            <th>
+              <Title search="lastName">Last Name</Title>
+            </th>
+            <th>
+              <Title search="gender">Gender</Title>
+            </th>
+            <th>
+              <Title search="age">Age</Title>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -30,17 +38,23 @@ class UserList extends Component {
               <td>
                 {" "}
                 <Button
-                  color="primary" 
+                  color="primary"
                   className="btn btn-sm"
-                  onClick= { () => this.props.history.push(`/users/edit/${user.login}`)}
-                >Pencil</Button>
+                  onClick={() =>
+                    this.props.history.push(`/users/edit/${user.login}`)
+                  }
+                >
+                  Edit
+                </Button>
               </td>
               <td>
                 {" "}
-                <Button 
+                <Button
                   className="btn btn-default btn-sm"
                   onClick={() => dispatch(deleteUser(user.login))}
-                >delete</Button>
+                >
+                  delete
+                </Button>
               </td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
