@@ -1,12 +1,16 @@
 import { combineReducers } from 'redux';
 import users from './users';
-import paginate from './paginate';
-import conditions from './conditions';
+import pagination from './pagination';
+import search from './search';
+import sort from './sort';
+import authentication from './authentication';
 
 const rootReducer = combineReducers({
   users,
-  paginate,
-  conditions
+  pagination,
+  search,
+  sort,
+  authentication
 });
 
 export default rootReducer;
