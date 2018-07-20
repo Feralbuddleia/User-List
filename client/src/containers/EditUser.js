@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { updateUser } from '../actions/user';
 
 const mapStateToProps = (state, ownProps) => ({
+  isLogin: state.authentication.loginInfo !== null,
   user: ownProps.user
 });
 
