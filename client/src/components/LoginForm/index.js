@@ -43,14 +43,14 @@ class LoginForm extends Component {
     } else {
       console.log(login, password);
       this.props.dispatch(userLogin(login, password));
-      this.setMessage(this.props.message);
+      this.setMessage(this.props.error);
     } 
   }
 
   render() {
     const { isLogin } = this.props;
     return isLogin 
-            ? <Redirect to={{pathname: '/users', state: {isLogin}}} />
+            ? <Redirect to={{pathname: '/users'}} />
             : (
               <div className="d-flex justify-content-center">
                 <Form onSubmit={this.onSubmit} className="Login-form">
@@ -68,7 +68,7 @@ class LoginForm extends Component {
                   </FormGroup>
                   <FormGroup>
                     <Label className="text-danger">
-                      {this.props.error}
+                      {this.state.message}
                     </Label>
                   </FormGroup>
                   <FormGroup row className="d-flex justify-content-center">

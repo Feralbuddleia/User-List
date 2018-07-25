@@ -39,7 +39,8 @@ const userLogin = (login, password) => (dispatch, getState) => {
       } 
     })
     .catch( err => {
-      dispatch(setLoginFail(err));
+      const { status, statusText } = err.response;
+      dispatch(setLoginFail( status + " " + statusText));
     });
 }
 
