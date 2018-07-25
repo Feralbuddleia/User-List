@@ -11,7 +11,7 @@ const Title = ({ doSort, children }) => (
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   doSort: () => {
-    dispatch(setSort(ownProps.search));
+    dispatch(setSort(ownProps.sort));
     dispatch(getUserData());
     return false;
   }

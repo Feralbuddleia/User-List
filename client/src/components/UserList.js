@@ -13,22 +13,22 @@ class UserList extends Component {
   render() {
     const { dispatch } = this.props;
     return (
-      <Table>
+      <Table striped>
         <thead>
           <tr>
             <th>Edit</th>
             <th>Delete</th>
             <th>
-              <Title search="firstName">First Name</Title>
+              <Title sort="firstName">First Name</Title>
             </th>
             <th>
-              <Title search="lastName">Last Name</Title>
+              <Title sort="lastName">Last Name</Title>
             </th>
             <th>
-              <Title search="gender">Gender</Title>
+              <Title sort="gender">Gender</Title>
             </th>
             <th>
-              <Title search="age">Age</Title>
+              <Title sort="age">Age</Title>
             </th>
           </tr>
         </thead>
